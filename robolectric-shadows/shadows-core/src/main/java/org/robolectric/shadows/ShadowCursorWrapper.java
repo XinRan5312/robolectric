@@ -22,7 +22,8 @@ import static android.os.Build.VERSION_CODES.M;
 public class ShadowCursorWrapper {
   private Cursor wrappedCursor;
 
-  public void __constructor__(Cursor c) {
+  @Implementation
+  protected void __constructor__(Cursor c) {
     wrappedCursor = c;
   }
 
