@@ -15,12 +15,12 @@ public class ShadowViewAnimator extends ShadowFrameLayout {
   private int currentChild = 0;
 
   @Implementation
-  public int getDisplayedChild() {
+  protected int getDisplayedChild() {
     return currentChild;
   }
 
   @Implementation
-  public void setDisplayedChild(int whichChild) {
+  protected void setDisplayedChild(int whichChild) {
     currentChild = whichChild;
     for (int i = ((ViewGroup) realView).getChildCount() - 1; i >= 0; i--) {
       View child = ((ViewGroup) realView).getChildAt(i);
@@ -29,17 +29,17 @@ public class ShadowViewAnimator extends ShadowFrameLayout {
   }
 
   @Implementation
-  public View getCurrentView() {
+  protected View getCurrentView() {
     return ((ViewGroup) realView).getChildAt(getDisplayedChild());
   }
 
   @Implementation
-  public void showNext() {
+  protected void showNext() {
     setDisplayedChild((getDisplayedChild() + 1) % ((ViewGroup) realView).getChildCount());
   }
 
   @Implementation
-  public void showPrevious() {
+  protected void showPrevious() {
     setDisplayedChild(getDisplayedChild() == 0 ? ((ViewGroup) realView).getChildCount() - 1 : getDisplayedChild() - 1);
   }
 }

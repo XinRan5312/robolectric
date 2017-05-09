@@ -38,19 +38,19 @@ public class ShadowConfiguration {
 
   @Deprecated
   @Implementation
-  public void setTo(Configuration o) {
+  protected void setTo(Configuration o) {
     directlyOn(realConfiguration, Configuration.class).setTo(o);
   }
 
   @Deprecated
   @Implementation
-  public void setToDefaults() {
+  protected void setToDefaults() {
     directlyOn(realConfiguration, Configuration.class).setToDefaults();
   }
 
   @Deprecated
   @Implementation
-  public void setLocale( Locale l ) {
+  protected void setLocale( Locale l ) {
     directlyOn(realConfiguration, Configuration.class).setLocale(l);
   }
 

@@ -21,44 +21,44 @@ public class ShadowOverScroller {
   private boolean started;
 
   @Implementation
-  public int getStartX() {
+  protected int getStartX() {
     return startX;
   }
 
   @Implementation
-  public int getStartY() {
+  protected int getStartY() {
     return startY;
   }
 
   @Implementation
-  public int getCurrX() {
+  protected int getCurrX() {
     long dt = deltaTime();
     return dt >= duration ? finalX : startX + (int) ((deltaX() * dt) / duration);
   }
 
   @Implementation
-  public int getCurrY() {
+  protected int getCurrY() {
     long dt = deltaTime();
     return dt >= duration ? finalY : startY + (int) ((deltaY() * dt) / duration);
   }
 
   @Implementation
-  public int getFinalX() {
+  protected int getFinalX() {
     return finalX;
   }
 
   @Implementation
-  public int getFinalY() {
+  protected int getFinalY() {
     return finalY;
   }
 
   @Implementation
-  public int getDuration() {
+  protected int getDuration() {
     return (int) duration;
   }
 
   @Implementation
-  public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+  protected void startScroll(int startX, int startY, int dx, int dy, int duration) {
     this.startX = startX;
     this.startY = startY;
     finalX = startX + dx;
@@ -76,12 +76,12 @@ public class ShadowOverScroller {
   }
 
   @Implementation
-  public void abortAnimation() {
+  protected void abortAnimation() {
     duration = deltaTime() - 1;
   }
 
   @Implementation
-  public void forceFinished(boolean finished) {
+  protected void forceFinished(boolean finished) {
     if (!finished) {
       throw new RuntimeException("Not implemented.");
     }
@@ -92,7 +92,7 @@ public class ShadowOverScroller {
   }
 
   @Implementation
-  public boolean computeScrollOffset() {
+  protected boolean computeScrollOffset() {
     if (!started) {
       return false;
     }
@@ -101,17 +101,17 @@ public class ShadowOverScroller {
   }
 
   @Implementation
-  public boolean isFinished() {
+  protected boolean isFinished() {
     return deltaTime() > duration;
   }
 
   @Implementation
-  public int timePassed() {
+  protected int timePassed() {
     return (int) deltaTime();
   }
 
   @Implementation
-  public boolean isScrollingInDirection(float xvel, float yvel) {
+  protected boolean isScrollingInDirection(float xvel, float yvel) {
     final int dx = finalX - startX;
     final int dy = finalY - startY;
     return !isFinished()

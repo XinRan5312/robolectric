@@ -8,7 +8,7 @@ import org.robolectric.annotation.Implements;
 public class ShadowLoadedApk {
 
   @Implementation
-  public ClassLoader getClassLoader() {
+  protected ClassLoader getClassLoader() {
     return this.getClass().getClassLoader();
   }
 }

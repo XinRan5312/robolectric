@@ -36,7 +36,7 @@ public class ShadowAccessibilityManager {
 
   @HiddenApi
   @Implementation
-  public static AccessibilityManager getInstance(Context context) throws Exception {
+  protected static AccessibilityManager getInstance(Context context) throws Exception {
     if (getApiLevel() >= KITKAT) {
       AccessibilityManager accessibilityManager = Shadow.newInstance(AccessibilityManager.class,
           new Class[]{Context.class, IAccessibilityManager.class, int.class},
@@ -51,17 +51,17 @@ public class ShadowAccessibilityManager {
   }
 
   @Implementation
-  public boolean addAccessibilityStateChangeListener(AccessibilityManager.AccessibilityStateChangeListener listener) {
+  protected boolean addAccessibilityStateChangeListener(AccessibilityManager.AccessibilityStateChangeListener listener) {
     return true;
   }
 
   @Implementation
-  public boolean removeAccessibilityStateChangeListener(AccessibilityManager.AccessibilityStateChangeListener listener) {
+  protected boolean removeAccessibilityStateChangeListener(AccessibilityManager.AccessibilityStateChangeListener listener) {
     return true;
   }
 
   @Implementation
-  public List<ServiceInfo> getAccessibilityServiceList () {
+  protected List<ServiceInfo> getAccessibilityServiceList () {
     return accessibilityServiceList;
   }
 
@@ -70,7 +70,7 @@ public class ShadowAccessibilityManager {
   }
 
   @Implementation
-  public List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList (int feedbackTypeFlags) {
+  protected List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList (int feedbackTypeFlags) {
     return enabledAccessibilityServiceList;
   }
 
@@ -79,7 +79,7 @@ public class ShadowAccessibilityManager {
   }
 
   @Implementation
-  public List<AccessibilityServiceInfo> getInstalledAccessibilityServiceList () {
+  protected List<AccessibilityServiceInfo> getInstalledAccessibilityServiceList () {
     return installedAccessibilityServiceList;
   }
 
@@ -88,7 +88,7 @@ public class ShadowAccessibilityManager {
   }
 
   @Implementation
-  public boolean isEnabled () {
+  protected boolean isEnabled () {
     return enabled;
   }
 
@@ -97,7 +97,7 @@ public class ShadowAccessibilityManager {
   }
 
   @Implementation
-  public boolean isTouchExplorationEnabled () {
+  protected boolean isTouchExplorationEnabled () {
     return touchExplorationEnabled;
   }
 

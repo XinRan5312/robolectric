@@ -49,7 +49,7 @@ public class ShadowResolveInfo {
   }
 
   @Implementation
-  public String loadLabel(PackageManager mgr) {
+  protected String loadLabel(PackageManager mgr) {
     return label;
   }
 

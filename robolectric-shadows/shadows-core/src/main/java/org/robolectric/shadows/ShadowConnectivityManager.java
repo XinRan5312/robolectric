@@ -63,12 +63,12 @@ public class ShadowConnectivityManager {
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public void registerNetworkCallback(NetworkRequest request, ConnectivityManager.NetworkCallback networkCallback) {
+  protected void registerNetworkCallback(NetworkRequest request, ConnectivityManager.NetworkCallback networkCallback) {
     networkCallbacks.add(networkCallback);
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public void unregisterNetworkCallback (ConnectivityManager.NetworkCallback networkCallback) {
+  protected void unregisterNetworkCallback (ConnectivityManager.NetworkCallback networkCallback) {
     if (networkCallback == null) {
       throw new IllegalArgumentException("Invalid NetworkCallback");
     }
@@ -78,48 +78,48 @@ public class ShadowConnectivityManager {
   }
 
   @Implementation
-  public NetworkInfo getActiveNetworkInfo() {
+  protected NetworkInfo getActiveNetworkInfo() {
     return activeNetworkInfo;
   }
 
   @Implementation(minSdk = M)
-  public Network getActiveNetwork() {
+  protected Network getActiveNetwork() {
     return netIdToNetwork.get(getActiveNetworkInfo().getType());
   }
 
   @Implementation
-  public NetworkInfo[] getAllNetworkInfo() {
+  protected NetworkInfo[] getAllNetworkInfo() {
     return networkTypeToNetworkInfo.values().toArray(new NetworkInfo[networkTypeToNetworkInfo.size()]);
   }
 
   @Implementation
-  public NetworkInfo getNetworkInfo(int networkType) {
+  protected NetworkInfo getNetworkInfo(int networkType) {
     return networkTypeToNetworkInfo.get(networkType);
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public NetworkInfo getNetworkInfo(Network network) {
+  protected NetworkInfo getNetworkInfo(Network network) {
     ShadowNetwork shadowNetwork = Shadows.shadowOf(network);
     return netIdToNetworkInfo.get(shadowNetwork.getNetId());
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public Network[] getAllNetworks() {
+  protected Network[] getAllNetworks() {
     return netIdToNetwork.values().toArray(new Network[netIdToNetwork.size()]);
   }
 
   @Implementation
-  public boolean getBackgroundDataSetting() {
+  protected boolean getBackgroundDataSetting() {
     return backgroundDataSetting;
   }
 
   @Implementation
-  public void setNetworkPreference(int preference) {
+  protected void setNetworkPreference(int preference) {
     networkPreference = preference;
   }
 
   @Implementation
-  public int getNetworkPreference() {
+  protected int getNetworkPreference() {
     return networkPreference;
   }
 
@@ -130,7 +130,7 @@ public class ShadowConnectivityManager {
    * @return True if the active network is metered.
    */
   @Implementation
-  public boolean isActiveNetworkMetered() {
+  protected boolean isActiveNetworkMetered() {
     if (activeNetworkInfo != null) {
       return activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
     } else {
@@ -143,7 +143,7 @@ public class ShadowConnectivityManager {
   }
 
   @HiddenApi @Implementation
-  public void setBackgroundDataSetting(boolean b) {
+  protected void setBackgroundDataSetting(boolean b) {
     backgroundDataSetting = b;
   }
 

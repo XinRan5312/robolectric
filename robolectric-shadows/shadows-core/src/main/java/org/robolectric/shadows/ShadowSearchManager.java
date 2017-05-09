@@ -13,7 +13,7 @@ import org.robolectric.annotation.Implements;
 public class ShadowSearchManager {
 
   @Implementation
-  public SearchableInfo getSearchableInfo(ComponentName componentName) {
+  protected SearchableInfo getSearchableInfo(ComponentName componentName) {
     // Prevent Robolectric from calling through
     return null;
   }

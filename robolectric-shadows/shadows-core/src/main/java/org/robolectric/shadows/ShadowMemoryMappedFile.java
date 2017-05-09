@@ -31,7 +31,7 @@ public class ShadowMemoryMappedFile {
     private static final String TZ_DATA_3 = "/misc/zoneinfo/current/tzdata";
 
     @Implementation
-    public static MemoryMappedFile mmapRO(String path) throws Throwable {
+    protected static MemoryMappedFile mmapRO(String path) throws Throwable {
         if (path.endsWith(TZ_DATA_1) || path.endsWith(TZ_DATA_2) || path.endsWith(TZ_DATA_3)) {
             InputStream is = MemoryMappedFile.class.getResourceAsStream(TZ_DATA_2);
             if (is == null) {
@@ -65,17 +65,17 @@ public class ShadowMemoryMappedFile {
     }
 
     @Implementation
-    public synchronized void close() throws Exception {
+    protected synchronized void close() throws Exception {
         bytes = null;
     }
 
     @Implementation
-    public BufferIterator bigEndianIterator() {
+    protected BufferIterator bigEndianIterator() {
         return getHeapBufferIterator(ByteOrder.BIG_ENDIAN);
     }
 
     @Implementation
-    public BufferIterator littleEndianIterator() {
+    protected BufferIterator littleEndianIterator() {
         return getHeapBufferIterator(ByteOrder.LITTLE_ENDIAN);
     }
 
@@ -84,7 +84,7 @@ public class ShadowMemoryMappedFile {
     }
 
     @Implementation
-    public int size() {
+    protected int size() {
         return bytes.length;
     }
 

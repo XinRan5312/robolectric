@@ -14,12 +14,12 @@ import java.io.File;
 @Implements(value = Posix.class, isInAndroidSdk = false)
 public class ShadowPosix {
   @Implementation
-  public static void mkdir(String path, int mode) throws ErrnoException {
+  protected static void mkdir(String path, int mode) throws ErrnoException {
     new File(path).mkdirs();
   }
 
   @Implementation
-  public static Object stat(String path) throws ErrnoException {
+  protected static Object stat(String path) throws ErrnoException {
     if (RuntimeEnvironment.getApiLevel() >= Build.VERSION_CODES.LOLLIPOP) {
       return new StructStat(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     } else {

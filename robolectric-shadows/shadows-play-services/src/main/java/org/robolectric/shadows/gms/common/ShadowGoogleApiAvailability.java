@@ -23,12 +23,12 @@ public class ShadowGoogleApiAvailability {
     private Dialog errorDialog;
 
     @Implementation
-    public static GoogleApiAvailability getInstance(){
+    protected static GoogleApiAvailability getInstance(){
         return InstanceHolder.INSTANCE;
     }
 
     @Implementation
-    public int isGooglePlayServicesAvailable(Context context){
+    protected int isGooglePlayServicesAvailable(Context context){
         return availabilityCode;
     }
 
@@ -37,7 +37,7 @@ public class ShadowGoogleApiAvailability {
     }
 
     @Implementation
-    public final boolean isUserResolvableError(int errorCode) {
+    protected final boolean isUserResolvableError(int errorCode) {
         return isUserResolvableError;
     }
 
@@ -46,7 +46,7 @@ public class ShadowGoogleApiAvailability {
     }
 
     @Implementation
-    public String getOpenSourceSoftwareLicenseInfo(Context context){
+    protected String getOpenSourceSoftwareLicenseInfo(Context context){
         return openSourceSoftwareLicenseInfo;
     }
 
@@ -55,12 +55,12 @@ public class ShadowGoogleApiAvailability {
     }
 
     @Implementation
-    public Dialog getErrorDialog(Activity activity, int errorCode, int requestCode) {
+    protected Dialog getErrorDialog(Activity activity, int errorCode, int requestCode) {
         return errorDialog;
     }
 
     @Implementation
-    public Dialog getErrorDialog(Activity activity, int errorCode, int requestCode,
+    protected Dialog getErrorDialog(Activity activity, int errorCode, int requestCode,
                                  DialogInterface.OnCancelListener cancelListener) {
         return errorDialog;
     }

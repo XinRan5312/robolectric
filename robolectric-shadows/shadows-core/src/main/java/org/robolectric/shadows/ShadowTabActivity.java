@@ -17,7 +17,7 @@ public class ShadowTabActivity extends ShadowActivityGroup {
   private TabHost tabhost;
 
   @Implementation
-  public TabHost getTabHost() {
+  protected TabHost getTabHost() {
     if (tabhost==null) {
       tabhost = new TabHost(realTabActivity);
     }
@@ -25,7 +25,7 @@ public class ShadowTabActivity extends ShadowActivityGroup {
   }
 
   @Implementation
-  public TabWidget getTabWidget() {
+  protected TabWidget getTabWidget() {
     return getTabHost().getTabWidget();
   }
 }

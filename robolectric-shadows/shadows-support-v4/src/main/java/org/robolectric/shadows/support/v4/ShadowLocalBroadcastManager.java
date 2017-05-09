@@ -28,7 +28,7 @@ public class ShadowLocalBroadcastManager {
   private final List<Wrapper> registeredReceivers = new ArrayList<>();
 
   @Implementation
-  public static LocalBroadcastManager getInstance(final Context context) {
+  protected static LocalBroadcastManager getInstance(final Context context) {
     return ShadowApplication.getInstance().getSingleton(LocalBroadcastManager.class, new Provider<LocalBroadcastManager>() {
       @Override
       public LocalBroadcastManager get() {
@@ -38,12 +38,12 @@ public class ShadowLocalBroadcastManager {
   }
 
   @Implementation
-  public void registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+  protected void registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
     registeredReceivers.add(new Wrapper(receiver, filter));
   }
 
   @Implementation
-  public void unregisterReceiver(BroadcastReceiver receiver) {
+  protected void unregisterReceiver(BroadcastReceiver receiver) {
     Iterator<Wrapper> iterator = registeredReceivers.iterator();
     while (iterator.hasNext()) {
       Wrapper wrapper = iterator.next();
@@ -54,7 +54,7 @@ public class ShadowLocalBroadcastManager {
   }
 
   @Implementation
-  public boolean sendBroadcast(Intent intent) {
+  protected boolean sendBroadcast(Intent intent) {
     boolean sent = false;
     sentBroadcastIntents.add(intent);
     List<Wrapper> copy = new ArrayList<>();

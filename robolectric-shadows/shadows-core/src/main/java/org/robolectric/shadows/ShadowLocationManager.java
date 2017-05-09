@@ -64,7 +64,7 @@ public class ShadowLocationManager {
       new HashMap<>();
 
   @Implementation
-  public boolean isProviderEnabled(String provider) {
+  protected boolean isProviderEnabled(String provider) {
     LocationProviderEntry map = providersEnabled.get(provider);
     if (map != null) {
       Boolean isEnabled = map.getKey();
@@ -74,7 +74,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public List<String> getAllProviders() {
+  protected List<String> getAllProviders() {
     Set<String> allKnownProviders = new LinkedHashSet<>(providersEnabled.keySet());
     allKnownProviders.add(LocationManager.GPS_PROVIDER);
     allKnownProviders.add(LocationManager.NETWORK_PROVIDER);
@@ -132,7 +132,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public List<String> getProviders(boolean enabledOnly) {
+  protected List<String> getProviders(boolean enabledOnly) {
     ArrayList<String> enabledProviders = new ArrayList<>();
     for (String provider : getAllProviders()) {
       if (!enabledOnly || providersEnabled.get(provider) != null) {
@@ -143,12 +143,12 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public Location getLastKnownLocation(String provider) {
+  protected Location getLastKnownLocation(String provider) {
     return lastKnownLocations.get(provider);
   }
 
   @Implementation
-  public boolean addGpsStatusListener(Listener listener) {
+  protected boolean addGpsStatusListener(Listener listener) {
     if (!gpsStatusListeners.contains(listener)) {
       gpsStatusListeners.add(listener);
     }
@@ -156,12 +156,12 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void removeGpsStatusListener(Listener listener) {
+  protected void removeGpsStatusListener(Listener listener) {
     gpsStatusListeners.remove(listener);
   }
 
   @Implementation
-  public String getBestProvider(Criteria criteria, boolean enabled) {
+  protected String getBestProvider(Criteria criteria, boolean enabled) {
     lastBestProviderCriteria = criteria;
     lastBestProviderEnabled = enabled;
 
@@ -224,7 +224,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void requestLocationUpdates(String provider, long minTime, float minDistance, LocationListener listener) {
+  protected void requestLocationUpdates(String provider, long minTime, float minDistance, LocationListener listener) {
     addLocationListener(provider, listener, minTime, minDistance);
   }
 
@@ -251,13 +251,13 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void requestLocationUpdates(String provider, long minTime, float minDistance, LocationListener listener,
+  protected void requestLocationUpdates(String provider, long minTime, float minDistance, LocationListener listener,
       Looper looper) {
     addLocationListener(provider, listener, minTime, minDistance);
   }
 
   @Implementation
-  public void requestLocationUpdates(long minTime, float minDistance, Criteria criteria, PendingIntent pendingIntent) {
+  protected void requestLocationUpdates(long minTime, float minDistance, Criteria criteria, PendingIntent pendingIntent) {
     if (pendingIntent == null) {
       throw new IllegalStateException("Intent must not be null");
     }
@@ -268,7 +268,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void requestLocationUpdates(String provider, long minTime, float minDistance,
+  protected void requestLocationUpdates(String provider, long minTime, float minDistance,
       PendingIntent pendingIntent) {
     if (pendingIntent == null) {
       throw new IllegalStateException("Intent must not be null");
@@ -281,7 +281,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void removeUpdates(LocationListener listener) {
+  protected void removeUpdates(LocationListener listener) {
     removedLocationListeners.add(listener);
   }
 
@@ -298,7 +298,7 @@ public class ShadowLocationManager {
   }
 
   @Implementation
-  public void removeUpdates(PendingIntent pendingIntent) {
+  protected void removeUpdates(PendingIntent pendingIntent) {
     while (requestLocationUdpateCriteriaPendingIntents.remove(pendingIntent) != null);
     while (requestLocationUdpateProviderPendingIntents.remove(pendingIntent) != null);
   }

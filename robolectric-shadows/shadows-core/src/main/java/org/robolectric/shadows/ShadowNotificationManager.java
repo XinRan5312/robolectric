@@ -27,22 +27,22 @@ public class ShadowNotificationManager {
   private final Map<String, NotificationChannelGroup> notificationChannelGroups = new HashMap<>();
 
   @Implementation
-  public void notify(int id, Notification notification) {
+  protected void notify(int id, Notification notification) {
     notify(null, id, notification);
   }
 
   @Implementation
-  public void notify(String tag, int id, Notification notification) {
+  protected void notify(String tag, int id, Notification notification) {
     notifications.put(new Key(tag, id), notification);
   }
 
   @Implementation
-  public void cancel(int id) {
+  protected void cancel(int id) {
     cancel(null, id);
   }
 
   @Implementation
-  public void cancel(String tag, int id) {
+  protected void cancel(String tag, int id) {
     Key key = new Key(tag, id);
     if (notifications.containsKey(key)) {
       notifications.remove(key);
@@ -50,12 +50,12 @@ public class ShadowNotificationManager {
   }
 
   @Implementation
-  public void cancelAll() {
+  protected void cancelAll() {
     notifications.clear();
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.M)
-  public StatusBarNotification[] getActiveNotifications() {
+  protected StatusBarNotification[] getActiveNotifications() {
     StatusBarNotification[] statusBarNotifications =
         new StatusBarNotification[notifications.size()];
     int i = 0;
@@ -76,27 +76,27 @@ public class ShadowNotificationManager {
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public NotificationChannel getNotificationChannel(String channelId) {
+  protected NotificationChannel getNotificationChannel(String channelId) {
     return notificationChannels.get(channelId);
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public void createNotificationChannelGroup(NotificationChannelGroup group) {
+  protected void createNotificationChannelGroup(NotificationChannelGroup group) {
     notificationChannelGroups.put(group.getId(), group);
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public List<NotificationChannelGroup> getNotificationChannelGroups() {
+  protected List<NotificationChannelGroup> getNotificationChannelGroups() {
     return ImmutableList.copyOf(notificationChannelGroups.values());
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public void createNotificationChannel(NotificationChannel channel) {
+  protected void createNotificationChannel(NotificationChannel channel) {
     notificationChannels.put(channel.getId(), channel);
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public List<NotificationChannel> getNotificationChannels() {
+  protected List<NotificationChannel> getNotificationChannels() {
     return ImmutableList.copyOf(notificationChannels.values());
   }
 

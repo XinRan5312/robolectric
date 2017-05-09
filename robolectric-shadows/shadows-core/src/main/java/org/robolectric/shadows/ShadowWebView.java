@@ -51,7 +51,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   private LoadDataWithBaseURL lastLoadDataWithBaseURL;
 
   @HiddenApi @Implementation
-  public void ensureProviderCreated() {
+  protected void ensureProviderCreated() {
     final ClassLoader classLoader = getClass().getClassLoader();
     Class<?> webViewProviderClass = getClassNamed("android.webkit.WebViewProvider");
     Field mProvider;
@@ -84,7 +84,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void setLayoutParams(LayoutParams params) {
+  protected void setLayoutParams(LayoutParams params) {
     ReflectionHelpers.setField(realWebView, "mLayoutParams", params);
   }
 
@@ -111,12 +111,12 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void loadUrl(String url) {
+  protected void loadUrl(String url) {
     loadUrl(url, null);
   }
 
   @Implementation
-  public void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
+  protected void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
     lastUrl = url;
 
     if (additionalHttpHeaders != null) {
@@ -127,12 +127,12 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
+  protected void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
     lastLoadDataWithBaseURL = new LoadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
   }
 
   @Implementation
-  public void loadData(String data, String mimeType, String encoding) {
+  protected void loadData(String data, String mimeType, String encoding) {
     lastLoadData = new LoadData(data, mimeType, encoding);
   }
 
@@ -155,17 +155,17 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public WebSettings getSettings() {
+  protected WebSettings getSettings() {
     return webSettings;
   }
 
   @Implementation
-  public void setWebViewClient(WebViewClient client) {
+  protected void setWebViewClient(WebViewClient client) {
     webViewClient = client;
   }
 
   @Implementation
-  public void setWebChromeClient(WebChromeClient client) {
+  protected void setWebChromeClient(WebChromeClient client) {
     webChromeClient = client;
   }
 
@@ -174,7 +174,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void addJavascriptInterface(Object obj, String interfaceName) {
+  protected void addJavascriptInterface(Object obj, String interfaceName) {
     javascriptInterfaces.put(interfaceName, obj);
   }
 
@@ -183,7 +183,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void clearCache(boolean includeDiskFiles) {
+  protected void clearCache(boolean includeDiskFiles) {
     clearCacheCalled = true;
     clearCacheIncludeDiskFiles = includeDiskFiles;
   }
@@ -197,7 +197,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void clearFormData() {
+  protected void clearFormData() {
     clearFormDataCalled = true;
   }
 
@@ -206,7 +206,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void clearHistory() {
+  protected void clearHistory() {
     clearHistoryCalled = true;
   }
 
@@ -215,7 +215,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void clearView() {
+  protected void clearView() {
     clearViewCalled = true;
   }
 
@@ -224,7 +224,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void onPause(){
+  protected void onPause(){
     onPauseCalled = true;
   }
 
@@ -233,7 +233,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void onResume() {
+  protected void onResume() {
     onResumeCalled = true;
   }
 
@@ -242,7 +242,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void destroy() {
+  protected void destroy() {
     destroyCalled = true;
   }
 
@@ -251,7 +251,7 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public void post(Runnable action) {
+  protected void post(Runnable action) {
     action.run();
     runFlag = true;
   }
@@ -271,17 +271,17 @@ public class ShadowWebView extends ShadowAbsoluteLayout {
   }
 
   @Implementation
-  public boolean canGoBack() {
+  protected boolean canGoBack() {
     return canGoBack;
   }
 
   @Implementation
-  public void goBack() {
+  protected void goBack() {
     goBackInvocations++;
   }
 
   @Implementation
-  public static String findAddress(String addr) {
+  protected static String findAddress(String addr) {
     return null;
   }
 

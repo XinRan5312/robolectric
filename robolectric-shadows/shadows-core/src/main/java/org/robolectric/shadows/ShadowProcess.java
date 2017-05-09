@@ -12,7 +12,7 @@ public class ShadowProcess {
   private static int pid;
 
   @Implementation
-  public static final int myPid() {
+  protected static final int myPid() {
     return pid;
   }
   

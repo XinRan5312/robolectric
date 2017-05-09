@@ -13,7 +13,7 @@ public class ShadowActivityGroup extends ShadowActivity {
   private Activity currentActivity;
 
   @Implementation
-  public android.app.Activity getCurrentActivity() {
+  protected android.app.Activity getCurrentActivity() {
     return currentActivity;
   }
 

@@ -69,7 +69,7 @@ public class ShadowLooper {
   }
 
   @Implementation
-  public void __constructor__(boolean quitAllowed) {
+  protected void __constructor__(boolean quitAllowed) {
     invokeConstructor(Looper.class, realObject, from(boolean.class, quitAllowed));
     if (isMainThread()) {
       mainLooper = realObject;
@@ -80,17 +80,17 @@ public class ShadowLooper {
   }
 
   @Implementation
-  public static Looper getMainLooper() {
+  protected static Looper getMainLooper() {
     return mainLooper;
   }
 
   @Implementation
-  public static Looper myLooper() {
+  protected static Looper myLooper() {
     return getLooperForThread(Thread.currentThread());
   }
 
   @Implementation
-  public static void loop() {
+  protected static void loop() {
     shadowOf(Looper.myLooper()).doLoop();
   }
 
@@ -108,13 +108,13 @@ public class ShadowLooper {
   }
 
   @Implementation
-  public void quit() {
+  protected void quit() {
     if (realObject == Looper.getMainLooper()) throw new RuntimeException("Main thread not allowed to quit");
     quitUnchecked();
   }
 
   @Implementation(minSdk = JELLY_BEAN_MR2)
-  public void quitSafely() {
+  protected void quitSafely() {
     quit();
   }
 
@@ -127,7 +127,7 @@ public class ShadowLooper {
   }
   
   @HiddenApi @Implementation
-  public int postSyncBarrier() {
+  protected int postSyncBarrier() {
     return 1;
   }
 

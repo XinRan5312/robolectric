@@ -599,7 +599,7 @@ public class DefaultPackageManagerTest {
 
   @Test
   public void canResolveDrawableGivenPackageAndResourceId() throws Exception {
-    Drawable drawable = ShadowDrawable.createFromStream(new ByteArrayInputStream(new byte[0]), "my_source");
+    Drawable drawable = Drawable.createFromStream(new ByteArrayInputStream(new byte[0]), "my_source");
     rpm.addDrawableResolution("com.example.foo", 4334, drawable);
     Drawable actual = rpm.getDrawable("com.example.foo", 4334, null);
     assertThat(actual).isSameAs(drawable);

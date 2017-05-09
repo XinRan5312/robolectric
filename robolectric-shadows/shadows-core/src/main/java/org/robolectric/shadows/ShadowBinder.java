@@ -21,7 +21,7 @@ public class ShadowBinder {
   private static Integer callingPid;
 
   @Implementation
-  public boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+  protected boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
    if (data != null) {
      data.setDataPosition(0);
    }
@@ -43,7 +43,7 @@ public class ShadowBinder {
   }
 
   @Implementation
-  public static final int getCallingPid() {
+  protected static final int getCallingPid() {
     if (callingPid != null) {
       return callingPid;
     }
@@ -51,7 +51,7 @@ public class ShadowBinder {
   }
 
   @Implementation
-  public static final int getCallingUid() {
+  protected static final int getCallingUid() {
     if (callingUid != null) {
       return callingUid;
     }
